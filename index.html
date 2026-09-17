@@ -1,0 +1,487 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SellYour.Energy</title>
+  <meta
+    name="description"
+    content="SellYour.Energy — The energy marketplace is changing."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --black: #050505;
+      --white: #f4f4f0;
+      --soft: #a4a49d;
+      --acid: #c8ff45;
+      --line: rgba(255,255,255,0.10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: "Inter", Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* --------------------------------
+       ATMOSPHERE
+    -------------------------------- */
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .ambient {
+      position: fixed;
+      width: 850px;
+      height: 850px;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(
+        circle,
+        rgba(200,255,69,0.075) 0%,
+        rgba(200,255,69,0.025) 25%,
+        transparent 68%
+      );
+      filter: blur(20px);
+      pointer-events: none;
+      animation: ambient 9s ease-in-out infinite;
+    }
+
+    @keyframes ambient {
+      0%,100% {
+        transform: translate(-50%, -50%) scale(0.95);
+        opacity: .7;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    /* --------------------------------
+       ENERGY ORBIT
+    -------------------------------- */
+
+    .energy-system {
+      position: fixed;
+      width: min(72vw, 900px);
+      height: min(72vw, 900px);
+      left: 50%;
+      top: 53%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: .72;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(200,255,69,0.10);
+      border-radius: 50%;
+      transform: rotate(-18deg) scaleY(.34);
+    }
+
+    .orbit.two {
+      transform: rotate(32deg) scaleY(.34);
+      opacity: .65;
+    }
+
+    .orbit.three {
+      transform: rotate(88deg) scaleY(.34);
+      opacity: .35;
+    }
+
+    .core {
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow:
+        0 0 20px rgba(200,255,69,.8),
+        0 0 70px rgba(200,255,69,.25);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .particle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 16px rgba(200,255,69,.9);
+    }
+
+    .particle.one {
+      left: 20%;
+      top: 42%;
+      animation: floatOne 7s ease-in-out infinite;
+    }
+
+    .particle.two {
+      right: 18%;
+      top: 57%;
+      animation: floatTwo 9s ease-in-out infinite;
+    }
+
+    .particle.three {
+      left: 55%;
+      top: 19%;
+      animation: floatThree 8s ease-in-out infinite;
+    }
+
+    @keyframes floatOne {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(90px,-25px); }
+    }
+
+    @keyframes floatTwo {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(-70px,30px); }
+    }
+
+    @keyframes floatThree {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(35px,80px); }
+    }
+
+    /* --------------------------------
+       HEADER
+    -------------------------------- */
+
+    header {
+      position: relative;
+      z-index: 10;
+      height: 90px;
+      padding: 0 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: var(--acid);
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--soft);
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 12px rgba(200,255,69,.8);
+    }
+
+    /* --------------------------------
+       MAIN
+    -------------------------------- */
+
+    main {
+      position: relative;
+      z-index: 5;
+      height: calc(100vh - 90px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 30px 40px;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1400px;
+      text-align: center;
+    }
+
+    .kicker {
+      margin-bottom: 34px;
+      color: var(--soft);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-size: clamp(64px, 12.3vw, 190px);
+      line-height: .82;
+      letter-spacing: -0.095em;
+      font-weight: 800;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .headline .first {
+      display: block;
+      color: var(--white);
+    }
+
+    .headline .second {
+      display: block;
+      color: var(--acid);
+      text-shadow: 0 0 80px rgba(200,255,69,.10);
+    }
+
+    .subline {
+      margin: 45px auto 0;
+      max-width: 560px;
+      color: var(--soft);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .subline strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* --------------------------------
+       CONTACT
+    -------------------------------- */
+
+    .contact {
+      margin-top: 34px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 9px;
+      transition: all .3s ease;
+    }
+
+    .contact .arrow {
+      color: var(--acid);
+      font-size: 17px;
+      transition: transform .3s ease;
+    }
+
+    .contact:hover {
+      color: var(--acid);
+      border-color: var(--acid);
+    }
+
+    .contact:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    /* --------------------------------
+       CORNER INFORMATION
+    -------------------------------- */
+
+    .corner {
+      position: fixed;
+      z-index: 10;
+      bottom: 28px;
+      font-size: 9px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #555750;
+    }
+
+    .corner.left {
+      left: 42px;
+    }
+
+    .corner.right {
+      right: 42px;
+    }
+
+    /* --------------------------------
+       RESPONSIVE
+    -------------------------------- */
+
+    @media (max-width: 700px) {
+
+      header {
+        height: 75px;
+        padding: 0 22px;
+      }
+
+      .status {
+        font-size: 8px;
+        letter-spacing: 1.2px;
+      }
+
+      main {
+        height: calc(100vh - 75px);
+        padding: 0 20px 50px;
+      }
+
+      .kicker {
+        font-size: 8px;
+        letter-spacing: 2px;
+        margin-bottom: 27px;
+      }
+
+      .headline {
+        font-size: 18vw;
+        letter-spacing: -0.09em;
+      }
+
+      .subline {
+        margin-top: 31px;
+        font-size: 13px;
+        max-width: 330px;
+      }
+
+      .contact {
+        margin-top: 27px;
+      }
+
+      .energy-system {
+        width: 125vw;
+        height: 125vw;
+        opacity: .5;
+      }
+
+      .corner {
+        bottom: 18px;
+        font-size: 7px;
+      }
+
+      .corner.left {
+        left: 20px;
+      }
+
+      .corner.right {
+        right: 20px;
+      }
+    }
+
+    @media (max-height: 650px) {
+
+      .kicker {
+        margin-bottom: 20px;
+      }
+
+      .subline {
+        margin-top: 25px;
+      }
+
+      .contact {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="noise"></div>
+  <div class="ambient"></div>
+
+  <div class="energy-system">
+    <div class="orbit"></div>
+    <div class="orbit two"></div>
+    <div class="orbit three"></div>
+
+    <div class="core"></div>
+
+    <div class="particle one"></div>
+    <div class="particle two"></div>
+    <div class="particle three"></div>
+  </div>
+
+  <header>
+    <a href="/" class="brand">
+      SellYour<span>.Energy</span>
+    </a>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      Building quietly
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+
+      <div class="kicker">
+        The energy economy is changing
+      </div>
+
+      <h1 class="headline">
+        <span class="first">SELL YOUR</span>
+        <span class="second">ENERGY.</span>
+      </h1>
+
+      <p class="subline">
+        <strong>A new marketplace for energy.</strong><br>
+        What comes next is worth waiting for.
+      </p>
+
+      <a
+        class="contact"
+        href="mailto:hello@xsignal.co"
+      >
+        Early access & enquiries
+        <span class="arrow">→</span>
+      </a>
+
+    </section>
+  </main>
+
+  <div class="corner left">
+    Coming 2026
+  </div>
+
+  <div class="corner right">
+    A project by XSignal
+  </div>
+
+</body>
+</html>
+```
